@@ -19,6 +19,7 @@ public class Categorie {
     @OneToMany(mappedBy = "categorie")
     private List<Transaction> transaction;
     @OneToOne()
+    @JoinColumn(name = "idbudget")
     private Budget budget;
 
 

@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 public class Budget {
     @Id
     private Long idBudget;
-    private Double montant;
+    private double montant;
     @OneToOne(mappedBy = "budget")
     private Categorie category;
 

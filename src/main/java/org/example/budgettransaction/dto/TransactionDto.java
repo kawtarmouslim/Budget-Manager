@@ -2,6 +2,7 @@ package org.example.budgettransaction.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.Value;
 import org.example.budgettransaction.entites.Transaction;
 
@@ -10,12 +11,11 @@ import java.sql.Date;
 
 @Data
 @AllArgsConstructor
-@Value
-public class TransactionDto implements Serializable {
-    Long id;
+@NoArgsConstructor
+public class TransactionDto {
     double montant;
     Date date;
     String description;
-    Long categorieId;
+    Long idCategorie;
 
 }

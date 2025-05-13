@@ -13,7 +13,7 @@ import java.util.List;
 public class Categorie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long idCategorie;
     private String nom;
     private String type;
     @OneToMany(mappedBy = "categorie")

@@ -12,14 +12,15 @@ import java.sql.Date;
 import java.util.List;
 
 @Data
-@AllArgsConstructor
 
-@Value
+
+@AllArgsConstructor
+@NoArgsConstructor
 public class CategorieDto implements Serializable {
-    Long id;
+
     String nom;
     String type;
-    List<TransactionDto> transaction;
+
 
 
 

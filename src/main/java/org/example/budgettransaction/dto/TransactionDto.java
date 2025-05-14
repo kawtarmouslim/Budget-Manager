@@ -13,6 +13,7 @@ import java.sql.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TransactionDto {
+    Long id;
     double montant;
     Date date;
     String description;

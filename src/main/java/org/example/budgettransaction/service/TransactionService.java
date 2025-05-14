@@ -24,25 +24,26 @@ public class TransactionService {
 
     @Transactional
     public TransactionDto save(TransactionDto transactionDto) {
-        // Étape 1 : charger la catégorie depuis la base
+        // Étape 1 : charger la catégorie
         Categorie categorie = categorieRepository.findById(transactionDto.getIdCategorie())
                 .orElseThrow(() -> new RuntimeException("Catégorie introuvable avec l'id: " + transactionDto.getIdCategorie()));
 
-        // Étape 2 : mapper manuellement
-        Transaction transaction = new Transaction();
-        transaction.setMontant(transactionDto.getMontant());
-        transaction.setDate(transactionDto.getDate());
-        transaction.setDescription(transactionDto.getDescription());
+        // Étape 2 : mapper DTO vers Entity avec ModelMapper
+        Transaction transaction = modelMapper.map(transactionDto, Transaction.class);
+
+        // Étape 3 : injecter manuellement la catégorie (ModelMapper ne sait pas faire ça tout seul)
         transaction.setCategorie(categorie);
 
-        // Étape 3 : sauvegarde
+        // Étape 4 : sauvegarde
         Transaction savedTransaction = transactionRepository.save(transaction);
 
-        // Étape 4 : mapping vers DTO
+        // Étape 5 : remapper vers DTO
         TransactionDto result = modelMapper.map(savedTransaction, TransactionDto.class);
-        result.setIdCategorie(savedTransaction.getCategorie().getIdCategorie());
+        result.setIdCategorie(savedTransaction.getCategorie().getIdCategorie()); // en cas de bug ModelMapper
+
         return result;
     }
+
     public List<TransactionDto> getAllTransactions() {
         List<Transaction> transactions = transactionRepository.findAll();
         return transactions.stream()

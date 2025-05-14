@@ -22,7 +22,7 @@ public class TransactionService {
     private final TransactionRepository transactionRepository;
     private final CategorieRepository categorieRepository;
 
-    @Transactional
+
     public TransactionDto save(TransactionDto transactionDto) {
         Categorie categorie = categorieRepository.findById(transactionDto.getIdCategorie())
                 .orElseThrow(() -> new RuntimeException("Catégorie introuvable avec l'id: " + transactionDto.getIdCategorie()));
@@ -44,6 +44,10 @@ public class TransactionService {
                 })
                 .collect(Collectors.toList());
     }
+    public  void deleteById(Long id) {
+        transactionRepository.deleteById(id);
+    }
+
 
 
 }

@@ -4,10 +4,7 @@ import lombok.AllArgsConstructor;
 import org.example.budgettransaction.Services.TransactionService;
 import org.example.budgettransaction.dto.TransactionDto;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,6 +21,11 @@ public class TransactionController {
     public ResponseEntity<List<TransactionDto>> findAll() {
         List<TransactionDto> transactions = transactionService.getAllTransactions();
         return ResponseEntity.ok(transactions);
+    }
+    @DeleteMapping("{id}")
+    public ResponseEntity<TransactionDto> delete(@PathVariable Long id) {
+        transactionService.deleteById(id);
+        return ResponseEntity.ok().build();
     }
 
 }

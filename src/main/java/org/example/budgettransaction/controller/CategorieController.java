@@ -2,9 +2,8 @@ package org.example.budgettransaction.controller;
 
 import lombok.AllArgsConstructor;
 import org.example.budgettransaction.dto.CategorieDto;
-import org.example.budgettransaction.service.CategorieService;
+import org.example.budgettransaction.Services.CategorieService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;

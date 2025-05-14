@@ -24,23 +24,13 @@ public class TransactionService {
 
     @Transactional
     public TransactionDto save(TransactionDto transactionDto) {
-        // Étape 1 : charger la catégorie
         Categorie categorie = categorieRepository.findById(transactionDto.getIdCategorie())
                 .orElseThrow(() -> new RuntimeException("Catégorie introuvable avec l'id: " + transactionDto.getIdCategorie()));
-
-        // Étape 2 : mapper DTO vers Entity avec ModelMapper
         Transaction transaction = modelMapper.map(transactionDto, Transaction.class);
-
-        // Étape 3 : injecter manuellement la catégorie (ModelMapper ne sait pas faire ça tout seul)
         transaction.setCategorie(categorie);
-
-        // Étape 4 : sauvegarde
         Transaction savedTransaction = transactionRepository.save(transaction);
-
-        // Étape 5 : remapper vers DTO
         TransactionDto result = modelMapper.map(savedTransaction, TransactionDto.class);
         result.setIdCategorie(savedTransaction.getCategorie().getIdCategorie()); // en cas de bug ModelMapper
-
         return result;
     }
 

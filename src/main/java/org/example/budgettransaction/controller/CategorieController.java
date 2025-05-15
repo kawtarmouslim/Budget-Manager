@@ -9,10 +9,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@AllArgsConstructor
+
 public class CategorieController {
 
     private final CategorieService categorieService;
+
+    public CategorieController(CategorieService categorieService) {
+        this.categorieService = categorieService;
+    }
 
     @PostMapping("categorie")
     // ajouter

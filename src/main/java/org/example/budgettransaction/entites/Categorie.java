@@ -22,5 +22,43 @@ public class Categorie {
     @JoinColumn(name = "idbudget")
     private Budget budget;
 
+    public Long getIdCategorie() {
+        return idCategorie;
+    }
 
+    public void setIdCategorie(Long idCategorie) {
+        this.idCategorie = idCategorie;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public List<Transaction> getTransaction() {
+        return transaction;
+    }
+
+    public void setTransaction(List<Transaction> transaction) {
+        this.transaction = transaction;
+    }
+
+    public Budget getBudget() {
+        return budget;
+    }
+
+    public void setBudget(Budget budget) {
+        this.budget = budget;
+    }
 }

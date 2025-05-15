@@ -17,4 +17,27 @@ public class Budget {
     @OneToOne(mappedBy = "budget")
     private Categorie category;
 
+    public Long getIdBudget() {
+        return idBudget;
+    }
+
+    public void setIdBudget(Long idBudget) {
+        this.idBudget = idBudget;
+    }
+
+    public double getMontant() {
+        return montant;
+    }
+
+    public void setMontant(double montant) {
+        this.montant = montant;
+    }
+
+    public Categorie getCategory() {
+        return category;
+    }
+
+    public void setCategory(Categorie category) {
+        this.category = category;
+    }
 }

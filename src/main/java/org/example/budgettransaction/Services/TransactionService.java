@@ -15,13 +15,18 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@AllArgsConstructor
+
 public class TransactionService {
     private ModelMapper modelMapper ;
     @Autowired
     private final TransactionRepository transactionRepository;
     private final CategorieRepository categorieRepository;
 
+    public TransactionService(ModelMapper modelMapper, TransactionRepository transactionRepository, CategorieRepository categorieRepository) {
+        this.modelMapper = modelMapper;
+        this.transactionRepository = transactionRepository;
+        this.categorieRepository = categorieRepository;
+    }
 
     public TransactionDto save(TransactionDto transactionDto) {
         Categorie categorie = categorieRepository.findById(transactionDto.getIdCategorie())
@@ -44,6 +49,23 @@ public class TransactionService {
                 })
                 .collect(Collectors.toList());
     }
+    @Transactional
+    public TransactionDto updateTansaction(Long id, TransactionDto transactionDto) {
+        Transaction existingTransaction = transactionRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Transaction introuvable avec l'id: " + id));
+        Categorie categorie = categorieRepository.findById(transactionDto.getIdCategorie())
+                .orElseThrow(() -> new RuntimeException("Catégorie introuvable avec l'id: " + transactionDto.getIdCategorie()));
+        existingTransaction.setMontant(transactionDto.getMontant());
+        existingTransaction.setDate(transactionDto.getDate());
+        existingTransaction.setDescription(transactionDto.getDescription());
+        existingTransaction.setCategorie(categorie);
+        Transaction updatedTransaction = transactionRepository.save(existingTransaction);
+        TransactionDto updatedDto = modelMapper.map(updatedTransaction, TransactionDto.class);
+        updatedDto.setIdCategorie(updatedTransaction.getCategorie().getIdCategorie());
+
+        return updatedDto;
+    }
+
     public  void deleteById(Long id) {
         transactionRepository.deleteById(id);
     }

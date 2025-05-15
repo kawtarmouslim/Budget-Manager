@@ -1,8 +1,7 @@
 package org.example.budgettransaction.controller;
 
-
 import org.example.budgettransaction.Services.BudgetService;
-import org.example.budgettransaction.entites.Budget;
+import org.example.budgettransaction.dto.BudgetDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,28 +14,28 @@ public class BudgetController {
     @Autowired
     private BudgetService budgetService;
 
-    //Ajouter
+    // Ajouter
     @PostMapping
-    public Budget addBudget(@RequestBody Budget budget) {
-        return budgetService.saveBudget(budget);
+    public BudgetDto addBudget(@RequestBody BudgetDto budgetDto) {
+        return budgetService.saveBudget(budgetDto);
     }
 
-    //Récupérer
+    // Récupérer par ID
     @GetMapping("/{id}")
-    public Budget getBudgetById(@PathVariable Long id) {
+    public BudgetDto getBudgetById(@PathVariable Long id) {
         return budgetService.getBudgetById(id);
     }
 
-    //Récupérer tous les budgets
+    // Récupérer tous
     @GetMapping
-    public List<Budget> getAllBudgets() {
+    public List<BudgetDto> getAllBudgets() {
         return budgetService.getAllBudgets();
     }
 
     // Modifier
     @PutMapping("/{id}")
-    public Budget updateBudget(@PathVariable Long id, @RequestBody Budget budget) {
-        return budgetService.updateBudget(budget);
+    public BudgetDto updateBudget(@PathVariable Long id, @RequestBody BudgetDto budgetDto) {
+        return budgetService.updateBudget(id, budgetDto);
     }
 
     // Supprimer
@@ -44,5 +43,4 @@ public class BudgetController {
     public void deleteBudget(@PathVariable Long id) {
         budgetService.deleteBudget(id);
     }
-
 }

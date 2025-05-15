@@ -15,16 +15,30 @@ import java.util.List;
 
 
 
-@NoArgsConstructor
+
 public class CategorieDto implements Serializable {
+     Long idCategorie;
 
     String nom;
     String type;
+    Long idBudget;
 
-
-    public CategorieDto(String nom, String type) {
+    public CategorieDto(Long idCategorie, String nom, String type, Long idBudget) {
+        this.idCategorie = idCategorie;
         this.nom = nom;
         this.type = type;
+        this.idBudget = idBudget;
+    }
+
+    public CategorieDto() {
+    }
+
+    public Long getIdCategorie() {
+        return idCategorie;
+    }
+
+    public void setIdCategorie(Long idCategorie) {
+        this.idCategorie = idCategorie;
     }
 
     public String getNom() {
@@ -41,5 +55,13 @@ public class CategorieDto implements Serializable {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public Long getIdBudget() {
+        return idBudget;
+    }
+
+    public void setIdBudget(Long idBudget) {
+        this.idBudget = idBudget;
     }
 }

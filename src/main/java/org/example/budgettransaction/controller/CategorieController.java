@@ -25,7 +25,7 @@ public class CategorieController {
         return ResponseEntity.ok(saved);
     }
     //toutes les catégories
-    @GetMapping
+    @GetMapping("categories")
     public ResponseEntity<List<CategorieDto>> getAll() {
         List<CategorieDto> categories = categorieService.getAll();
         return ResponseEntity.ok(categories);

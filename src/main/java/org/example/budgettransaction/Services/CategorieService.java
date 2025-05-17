@@ -7,6 +7,7 @@ import org.example.budgettransaction.entites.Budget;
 import org.example.budgettransaction.entites.Categorie;
 import org.example.budgettransaction.repesotory.BudgetRepository;
 import org.example.budgettransaction.repesotory.CategorieRepository;
+import org.example.budgettransaction.repesotory.TransactionRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,12 @@ public class CategorieService {
     private CategorieRepository categorieRepository;
     @Autowired
     private BudgetRepository budgetRepository;
-
+    private TransactionRepository transactionRepository;
+    @Autowired
+    public CategorieService(CategorieRepository categorieRepository, TransactionRepository transactionRepository) {
+        this.categorieRepository = categorieRepository;
+        this.transactionRepository = transactionRepository;
+    }
     @Autowired
     private ModelMapper modelMapper;
 
@@ -71,10 +77,15 @@ public class CategorieService {
         return result;
     }
 
-
-    // Supprimer
-    public void delete(Long id) {
-        categorieRepository.deleteById(id);
+    public void deleteCategorie(Long id) {
+        // Vérifie si la catégorie existe
+        Categorie categorie = categorieRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Catégorie introuvable avec l'id: " + id));
+        // Supprime la catégorie
+        categorieRepository.delete(categorie);
     }
+
+
+
 }
 

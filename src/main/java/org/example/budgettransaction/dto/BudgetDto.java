@@ -5,11 +5,32 @@ import lombok.Data;
 import lombok.Value;
 
 import java.io.Serializable;
-  @AllArgsConstructor
-@Data
-@Value
+
 public class BudgetDto implements Serializable {
     Long idBudget;
     Double montant;
-    Long categoryId;
+
+    public Long getIdBudget() {
+        return idBudget;
+    }
+
+    public void setIdBudget(Long idBudget) {
+        this.idBudget = idBudget;
+    }
+
+    public BudgetDto() {
+    }
+
+    public Double getMontant() {
+        return montant;
+    }
+
+    public void setMontant(Double montant) {
+        this.montant = montant;
+    }
+
+    public BudgetDto(Long idBudget, Double montant) {
+        this.idBudget = idBudget;
+        this.montant = montant;
+    }
 }

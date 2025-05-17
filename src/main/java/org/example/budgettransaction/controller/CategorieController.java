@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-
+//@RequestMapping("/categorie")
 public class CategorieController {
 
     private final CategorieService categorieService;
@@ -33,17 +33,19 @@ public class CategorieController {
 
     // Modifier
     @PutMapping("{idcategorie}")
-    public ResponseEntity<CategorieDto> update(@PathVariable Long id, @RequestBody CategorieDto dto) {
-        CategorieDto updated = categorieService.update(id, dto);
+    public ResponseEntity<CategorieDto> update(@PathVariable Long idcategorie , @RequestBody CategorieDto dto) {
+        CategorieDto updated = categorieService.update(idcategorie, dto);
         return ResponseEntity.ok(updated);
     }
 
 
     // Supprimer
-    @DeleteMapping("{idcatzgorie}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
-        categorieService.delete(id);
-        return ResponseEntity.noContent().build();
+    @DeleteMapping("{idcategorie}")
+    public ResponseEntity<CategorieDto> deleteCategorie(@PathVariable Long idcategorie) {
+
+            categorieService.deleteCategorie(idcategorie);
+            return ResponseEntity.ok().build();
+
     }
 
 }

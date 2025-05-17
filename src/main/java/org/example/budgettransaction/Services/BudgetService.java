@@ -43,14 +43,23 @@ public class BudgetService {
 
     // Modifier
     public BudgetDto updateBudget(Long id, BudgetDto budgetDto) {
-        Budget budget = modelMapper.map(budgetDto, Budget.class);
-        budget.setIdBudget(id);
-        Budget updated = budgetRepository.save(budget);
+        // Récupérer le budget existant ou lancer une exception
+        Budget existing = budgetRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Budget introuvable avec l'id: " + id));
+
+        // Mettre à jour uniquement les champs nécessaires
+        existing.setMontant(budgetDto.getMontant());
+
+        // Sauvegarder
+        Budget updated = budgetRepository.save(existing);
+
+        // Retourner le DTO
         return modelMapper.map(updated, BudgetDto.class);
     }
 
+
     // Supprimer
-    public void deleteBudget(Long id) {
-        budgetRepository.deleteById(id);
+    public void deleteBudget(Long idBudget) {
+        budgetRepository.deleteById(idBudget);
     }
 }
